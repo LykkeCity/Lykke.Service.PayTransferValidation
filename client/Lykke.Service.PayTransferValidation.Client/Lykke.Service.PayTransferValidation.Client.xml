@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lykke.Service.PayTransferValidation.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.AutofacExtension">
+            <summary>
+            Extension for client registration
+            </summary>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutofacExtension.RegisterPayTransferValidationClient(Autofac.ContainerBuilder,Lykke.Service.PayTransferValidation.Client.PayTransferValidationServiceClientSettings,System.Func{Lykke.HttpClientGenerator.HttpClientGeneratorBuilder,Lykke.HttpClientGenerator.HttpClientGeneratorBuilder})">
+            <summary>
+            Registers <see cref="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient"/> in Autofac container using <see cref="T:Lykke.Service.PayTransferValidation.Client.PayTransferValidationServiceClientSettings"/>.
+            </summary>
+            <param name="builder">Autofac container builder.</param>
+            <param name="settings">PayTransferValidation client settings.</param>
+            <param name="builderConfigure">Optional <see cref="T:Lykke.HttpClientGenerator.HttpClientGeneratorBuilder"/> configure handler.</param>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationApi">
+            <summary>
+            PayTransferValidation client API interface.
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient">
+            <summary>
+            PayTransferValidation client interface.
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient.Api">
+            <summary>Application Api interface</summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient">
+            <summary>
+            PayTransferValidation API aggregating interface.
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient.Api">
+            <summary>Inerface to PayTransferValidation Api.</summary>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient.#ctor(Lykke.HttpClientGenerator.IHttpClientGenerator)">
+            <summary>C-tor</summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.PayTransferValidationServiceClientSettings">
+            <summary>
+            PayTransferValidation client settings.
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.PayTransferValidationServiceClientSettings.ServiceUrl">
+            <summary>Service url.</summary>
+        </member>
+    </members>
+</doc>

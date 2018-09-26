@@ -1,0 +1,23 @@
+PayTransferValidationService:
+  Db:
+    LogsConnString:
+      settings-key: LykkePayLogsConnString
+      types: [ AzureTableStorage, Tag ]
+    DataConnString:
+      settings-key: LykkePayTransferValidationConnString
+      types: [ AzureTableStorage, Tag ]
+
+SlackNotifications:
+  AzureQueue:
+    ConnectionString:
+      settings-key: SlackNotificationsConnString
+      types: [ AzureTableStorage ]
+    QueueName:
+      settings-key: SlackQueueName
+      types: [ AzureTableStorage ]
+
+MonitoringServiceClient:
+  MonitoringServiceUrl:
+    settings-key: MonitoringServiceUrl
+    types: [ Tag ]c
+
