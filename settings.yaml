@@ -19,5 +19,4 @@ SlackNotifications:
 MonitoringServiceClient:
   MonitoringServiceUrl:
     settings-key: MonitoringServiceUrl
-    types: [ Tag ]c
-
+    types: [ Tag ]
