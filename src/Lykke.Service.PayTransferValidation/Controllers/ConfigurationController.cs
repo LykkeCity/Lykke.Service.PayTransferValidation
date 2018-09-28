@@ -18,7 +18,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Lykke.Service.PayTransferValidation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/configuration")]
     public class ConfigurationController : Controller
     {
         private readonly IMerchantConfigurationService _configurationService;

@@ -16,7 +16,7 @@ using ValidationContext = Lykke.Service.PayTransferValidation.Domain.ValidationC
 
 namespace Lykke.Service.PayTransferValidation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/validation")]
     public class ValidationController : Controller
     {
         private readonly IValidationService _validationService;
