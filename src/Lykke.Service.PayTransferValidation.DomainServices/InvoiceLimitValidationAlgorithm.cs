@@ -17,7 +17,6 @@ namespace Lykke.Service.PayTransferValidation.DomainServices
 
             if (ctx.TransferAmount > ctx.ExpectedAmount)
             {
-                result.IsSuccess = false;
                 result.Error = ErrorMessage;
             }
 
