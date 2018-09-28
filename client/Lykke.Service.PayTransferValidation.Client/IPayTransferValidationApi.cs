@@ -19,7 +19,7 @@ namespace Lykke.Service.PayTransferValidation.Client
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Post("/api/validation")]
-        Task<ValidationResultModel> ExecuteAsync([Body] ValidationContextModel model);
+        [Get("/api/validation")]
+        Task<ValidationResultModel> ValidateAsync([Query] ValidationContextModel model);
     }
 }

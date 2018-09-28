@@ -36,12 +36,12 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         /// <param name="model">Validation context</param>
         /// <response code="200">Validation executed</response>
         /// <response code="404">Validation algorithm not found</response>
-        [HttpPost]
+        [HttpGet]
         [SwaggerOperation("Validate")]
         [ProducesResponseType(typeof(ValidationResultModel), (int) HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.NotFound)]
         [ValidateModel]
-        public async Task<IActionResult> Execute([FromBody] ValidationContextModel model)
+        public async Task<IActionResult> Validate([FromQuery] ValidationContextModel model)
         {
             try
             {
