@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
+using Lykke.Service.PayTransferValidation.Client.Models.Validation;
 using Refit;
 
 namespace Lykke.Service.PayTransferValidation.Client
@@ -7,10 +9,17 @@ namespace Lykke.Service.PayTransferValidation.Client
     // Actual interface methods must be placed here (not in IPayTransferValidationClient interface).
 
     /// <summary>
-    /// PayTransferValidation client API interface.
+    /// PayTransferValidation client API
     /// </summary>
     [PublicAPI]
     public interface IPayTransferValidationApi
     {
+        /// <summary>
+        /// Validates transfer against merchant configuration algorithms
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Post("/api/validation")]
+        Task<ValidationResultModel> ExecuteAsync([Body] ValidationContextModel model);
     }
 }

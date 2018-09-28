@@ -25,7 +25,8 @@ namespace Lykke.Service.PayTransferValidation
                         string.Empty));
 
             CreateMap<AddLineModel, MerchantConfigurationLine>(MemberList.Destination)
-                .ForMember(dest => dest.Enabled, opt => opt.UseValue(true));
+                .ForMember(dest => dest.Enabled, opt => opt.UseValue(true))
+                .ForMember(dest => dest.AlgorithmInput, opt => opt.MapFrom(src => src.AlgorithmInput.ToString()));
 
             CreateMap<ValidationContextModel, ValidationContext>(MemberList.Destination);
 

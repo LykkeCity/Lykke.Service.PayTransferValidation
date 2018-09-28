@@ -12,7 +12,14 @@ namespace Lykke.Service.PayTransferValidation.Client
         // NO actual methods should be placed here (these go to controller interfaces, for example - IPayTransferValidationApi).
         // ONLY properties for accessing controller interfaces are allowed.
 
-        /// <summary>Application Api interface</summary>
+        /// <summary>
+        /// Validation API
+        /// </summary>
         IPayTransferValidationApi Api { get; }
+
+        /// <summary>
+        /// Configuration API
+        /// </summary>
+        IPayTransferValidationConfigurationApi Config { get; }
     }
 }

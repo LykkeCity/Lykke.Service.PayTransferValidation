@@ -1,26 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LykkePay.Common.Validation;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
-namespace Lykke.Service.PayTransferValidation.Models.MerchantConfiguration
+namespace Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration
 {
     /// <summary>
-    /// Add merchant configuration line model
+    /// Update merchant configuration line model
     /// </summary>
-    public class AddLineModel
+    public class UpdateInputModel
     {
         /// <summary>
         /// Gets or sets merchant id
         /// </summary>
-        [Required]
-        [RowKey]
         public string MerchantId { get; set; }
 
         /// <summary>
         /// Gets or sets algorithm id
         /// </summary>
-        [Required]
-        [RowKey]
         public string AlgorithmId { get; set; }
 
         /// <summary>

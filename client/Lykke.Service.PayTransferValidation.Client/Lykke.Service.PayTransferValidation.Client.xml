@@ -19,8 +19,15 @@
         </member>
         <member name="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationApi">
             <summary>
-            PayTransferValidation client API interface.
+            PayTransferValidation client API
             </summary>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationApi.ExecuteAsync(Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel)">
+            <summary>
+            Validates transfer against merchant configuration algorithms
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient">
             <summary>
@@ -28,7 +35,194 @@
             </summary>
         </member>
         <member name="P:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient.Api">
-            <summary>Application Api interface</summary>
+            <summary>
+            Validation API
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationClient.Config">
+            <summary>
+            Configuration API
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi">
+            <summary>
+            Configuration API
+            </summary>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.GetAsync(System.String)">
+            <summary>
+            Get validation algorithms configuration for merchant
+            </summary>
+            <param name="merchantId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.AddAsync(Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel)">
+            <summary>
+            Add new validation algorithm to merchant configuration
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.DeleteAsync(System.String,System.String)">
+            <summary>
+            Deletes validation algorithm from merchant's configuration
+            </summary>
+            <param name="merchantId"></param>
+            <param name="algorithmId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.EnableAsync(System.String,System.String)">
+            <summary>
+            Enables validation algorithm in merchant's configuration
+            </summary>
+            <param name="merchantId"></param>
+            <param name="algorithmId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.DisableAsync(System.String,System.String)">
+            <summary>
+            Disables validation algorithm in merchant's configuration
+            </summary>
+            <param name="merchantId"></param>
+            <param name="algorithmId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.IPayTransferValidationConfigurationApi.UpdateInputAsync(Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel)">
+            <summary>
+            Updates validation algorithm input
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel">
+            <summary>
+            Add merchant configuration line model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel.MerchantId">
+            <summary>
+            Gets or sets merchant id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel.AlgorithmId">
+            <summary>
+            Gets or sets algorithm id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel.AlgorithmInput">
+            <summary>
+            Gets or sets algorithm input
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.ConfigurationModel">
+            <summary>
+            Merchant configuration line model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.ConfigurationModel.Algorithms">
+            <summary>
+            Gets or sets an array of algorithm settings
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.LineModel">
+            <summary>
+            Merchant configuration line model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.LineModel.AlgorithmId">
+            <summary>
+            Gets or sets algorithm id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.LineModel.AlgorithmDisplayName">
+            <summary>
+            Gets or sets algorithm display name
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.LineModel.AlgorithmInput">
+            <summary>
+            Gets or sets algorithm input
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.LineModel.Enabled">
+            <summary>
+            Gets or sets enabled flag
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel">
+            <summary>
+            Update merchant configuration line model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel.MerchantId">
+            <summary>
+            Gets or sets merchant id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel.AlgorithmId">
+            <summary>
+            Gets or sets algorithm id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel.AlgorithmInput">
+            <summary>
+            Gets or sets algorithm input
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.Validation.AlgorithmValidationResultModel">
+            <summary>
+            Algorithm validation result model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.AlgorithmValidationResultModel.Rule">
+            <summary>
+            Gets or sets rule name
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.AlgorithmValidationResultModel.IsSuccess">
+            <summary>
+            Gets or sets success flag
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.AlgorithmValidationResultModel.Error">
+            <summary>
+            Gets or sets error message
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel">
+            <summary>
+            Validation context model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel.MerchantId">
+            <summary>
+            Gets or sets merchant id
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel.TransferAmount">
+            <summary>
+            Gets or sets transfer amount
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel.ExpectedAmount">
+            <summary>
+            Gets or sets expected amount
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel.AssetId">
+            <summary>
+            Gets or sets asset id
+            </summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationResultModel">
+            <summary>
+            Validation result model
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationResultModel.Results">
+            <summary>
+            Gets or sets algorithms validation result array
+            </summary>
         </member>
         <member name="T:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient">
             <summary>
@@ -36,7 +230,14 @@
             </summary>
         </member>
         <member name="P:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient.Api">
-            <summary>Inerface to PayTransferValidation Api.</summary>
+            <summary>
+            Interface to PayTransferValidation Api.
+            </summary>
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient.Config">
+            <summary>
+            Interface for Configuration API
+            </summary>
         </member>
         <member name="M:Lykke.Service.PayTransferValidation.Client.PayTransferValidationClient.#ctor(Lykke.HttpClientGenerator.IHttpClientGenerator)">
             <summary>C-tor</summary>
@@ -48,6 +249,45 @@
         </member>
         <member name="P:Lykke.Service.PayTransferValidation.Client.PayTransferValidationServiceClientSettings.ServiceUrl">
             <summary>Service url.</summary>
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationApi.ExecuteAsync(Lykke.Service.PayTransferValidation.Client.Models.Validation.ValidationContextModel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi">
+            <inheritdoc />
+        </member>
+        <member name="P:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.Client">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.#ctor(System.Net.Http.HttpClient,Refit.IRequestBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.GetAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.AddAsync(Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.AddLineModel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.DeleteAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.EnableAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.DisableAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lykke.Service.PayTransferValidation.Client.AutoGeneratedIPayTransferValidationConfigurationApi.UpdateInputAsync(Lykke.Service.PayTransferValidation.Client.Models.MerchantConfiguration.UpdateInputModel)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

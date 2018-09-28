@@ -27,6 +27,19 @@ namespace Lykke.Service.PayTransferValidation.DomainServices
 
         public async Task<IMerchantConfigurationLine> AddAsync(IMerchantConfigurationLine src)
         {
+            var algorithm = _componentContext.ResolveNamed<IValidationAlgorithm>(src.AlgorithmId);
+
+            if (algorithm == null)
+                throw new ValidationAlgorithmNotFoundException(src.AlgorithmId);
+
+            if (!string.IsNullOrEmpty(src.AlgorithmInput))
+            {
+                IEnumerable<ValidationResult> validationErrors = algorithm.ValidateInput(src.AlgorithmInput).ToList();
+
+                if (validationErrors.Any())
+                    throw new InvalidInputException(src.AlgorithmId, validationErrors);
+            }
+
             return await _repository.AddAsync(src);
         }
 

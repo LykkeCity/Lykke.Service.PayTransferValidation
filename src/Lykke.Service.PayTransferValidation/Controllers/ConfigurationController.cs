@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -58,13 +57,15 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         /// Add new validation algorithm to merchant configuration
         /// </summary>
         /// <param name="model">Add validation algorithm details</param>
-        /// <response code="400">Validation algorithm already added</response>
         /// <response code="200">Validation algorithm has been successfully added</response>
+        /// <response code="400">Validation algorithm already added or algorithm input is invalid</response>
+        /// <response code="404">Validation algorithm not found</response>
         [HttpPost]
         [SwaggerOperation("AddMerchantConfiguration")]
         [ValidateModel]
         [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(LineModel), (int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.NotFound)]
         public async Task<IActionResult> Add([FromBody] AddLineModel model)
         {
             try
@@ -80,6 +81,18 @@ namespace Lykke.Service.PayTransferValidation.Controllers
 
                 return BadRequest(ErrorResponse.Create(e.Message));
             }
+            catch (InvalidInputException e)
+            {
+                _log.Error(e, model.ToDetails());
+
+                return BadRequest(e.ToErrorResponse());
+            }
+            catch (ValidationAlgorithmNotFoundException e)
+            {
+                _log.Error(e, model.ToDetails());
+
+                return NotFound(ErrorResponse.Create($"Algorithm with id {model.AlgorithmId} not found"));
+            }
         }
 
         /// <summary>
@@ -93,7 +106,7 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         [Route("{merchantId}/{algorithmId}")]
         [SwaggerOperation("DeleteMerchantConfiguration")]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(LineModel), (int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(string merchantId, string algorithmId)
         {
             merchantId = Uri.UnescapeDataString(merchantId);

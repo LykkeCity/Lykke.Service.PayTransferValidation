@@ -9,13 +9,21 @@ namespace Lykke.Service.PayTransferValidation.Client
     {
         // Note: Add similar Api properties for each new service controller
 
-        /// <summary>Inerface to PayTransferValidation Api.</summary>
+        /// <summary>
+        /// Interface to PayTransferValidation Api.
+        /// </summary>
         public IPayTransferValidationApi Api { get; private set; }
+
+        /// <summary>
+        /// Interface for Configuration API
+        /// </summary>
+        public IPayTransferValidationConfigurationApi Config { get; private set; }
 
         /// <summary>C-tor</summary>
         public PayTransferValidationClient(IHttpClientGenerator httpClientGenerator)
         {
             Api = httpClientGenerator.Generate<IPayTransferValidationApi>();
+            Config = httpClientGenerator.Generate<IPayTransferValidationConfigurationApi>();
         }
     }
 }
