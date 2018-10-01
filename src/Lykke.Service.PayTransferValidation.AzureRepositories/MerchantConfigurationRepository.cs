@@ -27,11 +27,11 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
             return Mapper.Map<MerchantConfigurationLine>(entity);
         }
 
-        public async Task<IMerchantConfigurationLine> GetAsync(string merchantId, string algorithmId)
+        public async Task<IMerchantConfigurationLine> GetAsync(string merchantId, string ruleId)
         {
             MerchantConfigurationLineEntity entity = await _storage.GetDataAsync(
                 MerchantConfigurationLineEntity.ByMerchant.GeneratePartitionKey(merchantId),
-                MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(algorithmId));
+                MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(ruleId));
 
             return Mapper.Map<MerchantConfigurationLine>(entity);
         }
@@ -48,13 +48,13 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
         public async Task UpdateAsync(IMerchantConfigurationLine src)
         {
             string pKey = MerchantConfigurationLineEntity.ByMerchant.GeneratePartitionKey(src.MerchantId);
-            string rKey = MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(src.AlgorithmId);
+            string rKey = MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(src.RuleId);
 
             MerchantConfigurationLineEntity updatedEntity = await _storage.MergeAsync(pKey, rKey,
                 entity =>
                 {
-                    if (src.AlgorithmInput != null)
-                        entity.AlgorithmInput = src.AlgorithmInput;
+                    if (src.RuleInput != null)
+                        entity.RuleInput = src.RuleInput;
                     if (src.Enabled.HasValue)
                         entity.Enabled = src.Enabled.Value;
 
@@ -65,10 +65,10 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
                 throw new EntityNotFoundException(pKey, rKey);
         }
 
-        public async Task DeleteAsync(string merchantId, string algorithmId)
+        public async Task DeleteAsync(string merchantId, string ruleId)
         {
             string pKey = MerchantConfigurationLineEntity.ByMerchant.GeneratePartitionKey(merchantId);
-            string rKey = MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(algorithmId);
+            string rKey = MerchantConfigurationLineEntity.ByMerchant.GenerateRowKey(ruleId);
 
             MerchantConfigurationLineEntity deletedEntity = await _storage.DeleteAsync(pKey, rKey);
 

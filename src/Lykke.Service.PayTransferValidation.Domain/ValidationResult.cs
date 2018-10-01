@@ -4,6 +4,6 @@ namespace Lykke.Service.PayTransferValidation.Domain
 {
     public class ValidationResult
     {
-        public IReadOnlyList<AlgorithmValidationResult> Results { get; set; }        
+        public IReadOnlyList<RuleValidationResult> Results { get; set; }        
     }
 }

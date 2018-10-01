@@ -7,14 +7,14 @@ using Lykke.Service.PayTransferValidation.DomainServices;
 namespace Lykke.Service.PayTransferValidation.Modules
 {
     [UsedImplicitly]
-    public class AlgorithmsModule : Module
+    public class RulesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(ValidationAlgorithm).Assembly)
-                .Where(x => x.IsSubclassOf(typeof(ValidationAlgorithm)))
-                .Named(type => type.GetAttributeValue((AlgorithmIdentityAttribute attr) => attr.Id),
-                    typeof(IValidationAlgorithm));
+            builder.RegisterAssemblyTypes(typeof(ValidationRule).Assembly)
+                .Where(x => x.IsSubclassOf(typeof(ValidationRule)))
+                .Named(type => type.GetAttributeValue((RuleIdentityAttribute attr) => attr.Id),
+                    typeof(IValidationRule));
         }
     }
 }

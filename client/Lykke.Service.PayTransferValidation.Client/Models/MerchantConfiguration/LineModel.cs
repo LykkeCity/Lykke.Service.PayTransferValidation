@@ -6,19 +6,19 @@
     public class LineModel
     {
         /// <summary>
-        /// Gets or sets algorithm id
+        /// Gets or sets rule id
         /// </summary>
-        public string AlgorithmId { get; set; }
+        public string RuleId { get; set; }
 
         /// <summary>
-        /// Gets or sets algorithm display name
+        /// Gets or sets rule display name
         /// </summary>
-        public string AlgorithmDisplayName { get; set; }
+        public string RuleDisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets algorithm input
+        /// Gets or sets rule input
         /// </summary>
-        public string AlgorithmInput { get; set; }
+        public string RuleInput { get; set; }
 
         /// <summary>
         /// Gets or sets enabled flag

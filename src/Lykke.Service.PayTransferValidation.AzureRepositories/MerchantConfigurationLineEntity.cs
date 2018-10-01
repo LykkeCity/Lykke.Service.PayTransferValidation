@@ -13,9 +13,9 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
 
         public string MerchantId { get; set; }
 
-        public string AlgorithmId { get; set; }
+        public string RuleId { get; set; }
 
-        public string AlgorithmInput { get; set; }
+        public string RuleInput { get; set; }
 
         public bool Enabled
         {
@@ -35,9 +35,9 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
                 return merchantId;
             }
 
-            public static string GenerateRowKey(string algorithmId)
+            public static string GenerateRowKey(string ruleId)
             {
-                return algorithmId;
+                return ruleId;
             }
 
             public static MerchantConfigurationLineEntity Create(IMerchantConfigurationLine src)
@@ -45,7 +45,7 @@ namespace Lykke.Service.PayTransferValidation.AzureRepositories
                 var entity = new MerchantConfigurationLineEntity
                 {
                     PartitionKey = GeneratePartitionKey(src.MerchantId),
-                    RowKey = GenerateRowKey(src.AlgorithmId)
+                    RowKey = GenerateRowKey(src.RuleId)
                 };
 
                 return Mapper.Map(src, entity);

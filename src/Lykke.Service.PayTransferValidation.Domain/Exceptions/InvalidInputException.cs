@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Lykke.Service.PayTransferValidation.Domain.Exceptions
@@ -11,10 +10,10 @@ namespace Lykke.Service.PayTransferValidation.Domain.Exceptions
         {
         }
 
-        public InvalidInputException(string algorithmId, IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> errors) : base(
-            "The input for validation algorithm is not valid")
+        public InvalidInputException(string ruleId, IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> errors) : base(
+            "The input for validation rule is not valid")
         {
-            AlgorithmId = algorithmId;
+            RuleId = ruleId;
             Errors = errors;
         }
 
@@ -26,7 +25,7 @@ namespace Lykke.Service.PayTransferValidation.Domain.Exceptions
         {
         }
 
-        public string AlgorithmId { get; set; }
+        public string RuleId { get; set; }
         public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Errors { get; set; }
     }
 }

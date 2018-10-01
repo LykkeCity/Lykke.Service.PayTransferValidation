@@ -17,15 +17,15 @@ namespace Lykke.Service.PayTransferValidation.Models.MerchantConfiguration
         public string MerchantId { get; set; }
 
         /// <summary>
-        /// Gets or sets algorithm id
+        /// Gets or sets rule id
         /// </summary>
         [Required]
         [RowKey]
-        public string AlgorithmId { get; set; }
+        public string RuleId { get; set; }
 
         /// <summary>
-        /// Gets or sets algorithm input
+        /// Gets or sets rule input
         /// </summary>
-        public JObject AlgorithmInput { get; set; }
+        public JObject RuleInput { get; set; }
     }
 }

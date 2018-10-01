@@ -6,14 +6,14 @@ using Lykke.Service.PayTransferValidation.Domain;
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    [AlgorithmIdentity("8b70b7e4-443c-45e1-be7b-199fc5178441", "Invoice Limit")]
-    public class InvoiceLimitValidationAlgorithm : ValidationAlgorithm
+    [RuleIdentity("8b70b7e4-443c-45e1-be7b-199fc5178441", "Invoice Limit")]
+    public class InvoiceLimitValidationRule : ValidationRule
     {
         private const string ErrorMessage = "The transferring amount is more than expected";
         
-        public override Task<AlgorithmValidationResult> ExecuteAsync(ValidationContext ctx, string input)
+        public override Task<RuleValidationResult> ExecuteAsync(ValidationContext ctx, string input)
         {
-            AlgorithmValidationResult result = GetSuccessResult();
+            RuleValidationResult result = GetSuccessResult();
 
             if (ctx.TransferAmount > ctx.ExpectedAmount)
             {

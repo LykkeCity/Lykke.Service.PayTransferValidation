@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Common.Log;
@@ -8,6 +9,7 @@ using Lykke.Common.Log;
 using Lykke.Service.PayTransferValidation.Domain;
 using Lykke.Service.PayTransferValidation.Domain.Exceptions;
 using Lykke.Service.PayTransferValidation.Domain.Services;
+using Lykke.Service.PayTransferValidation.Models.Rule;
 using Lykke.Service.PayTransferValidation.Models.Validation;
 using LykkePay.Common.Validation;
 using Microsoft.AspNetCore.Mvc;
@@ -31,11 +33,11 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         }
 
         /// <summary>
-        /// Validates transfer against merchant configuration algorithms
+        /// Validates transfer against merchant configuration rules
         /// </summary>
         /// <param name="model">Validation context</param>
         /// <response code="200">Validation executed</response>
-        /// <response code="404">Validation algorithm not found</response>
+        /// <response code="404">Validation rule not found</response>
         [HttpGet]
         [SwaggerOperation("Validate")]
         [ProducesResponseType(typeof(ValidationResultModel), (int) HttpStatusCode.OK)]
@@ -49,12 +51,29 @@ namespace Lykke.Service.PayTransferValidation.Controllers
 
                 return Ok(Mapper.Map<ValidationResultModel>(result));
             }
-            catch (ValidationAlgorithmNotFoundException e)
+            catch (ValidationRuleNotFoundException e)
             {
-                _log.Error(e, e.Message, e.AlgorithmId);
+                _log.Error(e, e.Message, e.RuleId);
 
                 return NotFound(ErrorResponse.Create(e.Message));
             }
+        }
+
+        /// <summary>
+        /// Get list of registered validation rules in the system
+        /// </summary>
+        /// <response code="200">List of validation rules</response>
+        [HttpGet]
+        [Route("rules")]
+        [SwaggerOperation("GetRegisteredRules")]
+        [ProducesResponseType(typeof(IEnumerable<RegisteredRuleModel>), (int)HttpStatusCode.OK)]
+        public IActionResult Get()
+        {
+            IReadOnlyList<RegisteredValidationRule> registeredRules = _validationService.GetRegisteredRules();
+
+            var response = Mapper.Map<IReadOnlyList<RegisteredRuleModel>>(registeredRules);
+
+            return Ok(response);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Lykke.Service.PayTransferValidation.Client
     public interface IPayTransferValidationConfigurationApi
     {
         /// <summary>
-        /// Get validation algorithms configuration for merchant
+        /// Get validation rules configuration for merchant
         /// </summary>
         /// <param name="merchantId"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace Lykke.Service.PayTransferValidation.Client
         Task<ConfigurationModel> GetAsync(string merchantId);
 
         /// <summary>
-        /// Add new validation algorithm to merchant configuration
+        /// Add new validation rule to merchant configuration
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -28,34 +28,34 @@ namespace Lykke.Service.PayTransferValidation.Client
         Task<LineModel> AddAsync([Body] AddLineModel model);
 
         /// <summary>
-        /// Deletes validation algorithm from merchant's configuration
+        /// Deletes validation rule from merchant's configuration
         /// </summary>
         /// <param name="merchantId"></param>
-        /// <param name="algorithmId"></param>
+        /// <param name="ruleId"></param>
         /// <returns></returns>
-        [Delete("/api/configuration/{merchantId}/{algorithmId}")]
-        Task DeleteAsync(string merchantId, string algorithmId);
+        [Delete("/api/configuration/{merchantId}/{ruleId}")]
+        Task DeleteAsync(string merchantId, string ruleId);
 
         /// <summary>
-        /// Enables validation algorithm in merchant's configuration
+        /// Enables validation rule in merchant's configuration
         /// </summary>
         /// <param name="merchantId"></param>
-        /// <param name="algorithmId"></param>
+        /// <param name="ruleId"></param>
         /// <returns></returns>
-        [Put("/api/configuration/{merchantId}/{algorithmId}/enable")]
-        Task EnableAsync(string merchantId, string algorithmId);
+        [Put("/api/configuration/{merchantId}/{ruleId}/enable")]
+        Task EnableAsync(string merchantId, string ruleId);
 
         /// <summary>
-        /// Disables validation algorithm in merchant's configuration
+        /// Disables validation rule in merchant's configuration
         /// </summary>
         /// <param name="merchantId"></param>
-        /// <param name="algorithmId"></param>
+        /// <param name="ruleId"></param>
         /// <returns></returns>
-        [Put("/api/configuration/{merchantId}/{algorithmId}/disable")]
-        Task DisableAsync(string merchantId, string algorithmId);
+        [Put("/api/configuration/{merchantId}/{ruleId}/disable")]
+        Task DisableAsync(string merchantId, string ruleId);
 
         /// <summary>
-        /// Updates validation algorithm input
+        /// Updates validation rule input
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

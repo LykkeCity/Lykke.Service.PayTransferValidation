@@ -8,8 +8,8 @@ namespace Lykke.Service.PayTransferValidation.Models.MerchantConfiguration
     public class ConfigurationModel
     {
         /// <summary>
-        /// Gets or sets an array of algorithm settings
+        /// Gets or sets an array of rule settings
         /// </summary>
-        public IReadOnlyList<LineModel> Algorithms { get; set; }
+        public IReadOnlyList<LineModel> Rules { get; set; }
     }
 }

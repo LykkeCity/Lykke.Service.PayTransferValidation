@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lykke.Service.PayTransferValidation.Domain.Repositories;
-using Newtonsoft.Json.Linq;
 
 namespace Lykke.Service.PayTransferValidation.Domain.Services
 {
@@ -9,16 +8,16 @@ namespace Lykke.Service.PayTransferValidation.Domain.Services
     {
         Task<IMerchantConfigurationLine> AddAsync(IMerchantConfigurationLine src);
 
-        Task<IMerchantConfigurationLine> GetAsync(string merchantId, string algorithmId);
+        Task<IMerchantConfigurationLine> GetAsync(string merchantId, string ruleId);
 
         Task<IReadOnlyList<IMerchantConfigurationLine>> GetByMerchantAsync(string merchantId);
 
-        Task EnableAsync(string merchantId, string algorithmId);
+        Task EnableAsync(string merchantId, string ruleId);
 
-        Task DisableAsync(string merchantId, string algorithmId);
+        Task DisableAsync(string merchantId, string ruleId);
 
-        Task UpdateAlgorithmInputAsync(string merchantId, string algorithmId, string algorithmInput);
+        Task UpdateRuleInputAsync(string merchantId, string ruleId, string ruleInput);
 
-        Task DeleteAsync(string merchantId, string algorithmId);
+        Task DeleteAsync(string merchantId, string ruleId);
     }
 }

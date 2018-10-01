@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Lykke.Service.PayTransferValidation.Domain.Services
 {
-    public interface IValidationAlgorithm
+    public interface IValidationRule
     {
-        Task<AlgorithmValidationResult> ExecuteAsync(ValidationContext ctx, string input);
+        Task<RuleValidationResult> ExecuteAsync(ValidationContext ctx, string input);
 
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> ValidateInput(string input);
     }

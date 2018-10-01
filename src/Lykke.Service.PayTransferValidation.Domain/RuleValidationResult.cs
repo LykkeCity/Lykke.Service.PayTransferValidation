@@ -1,6 +1,6 @@
 ﻿namespace Lykke.Service.PayTransferValidation.Domain
 {
-    public class AlgorithmValidationResult
+    public class RuleValidationResult
     {
         private string _error;
 

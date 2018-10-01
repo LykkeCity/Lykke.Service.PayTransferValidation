@@ -1,9 +1,9 @@
 ﻿namespace Lykke.Service.PayTransferValidation.Client.Models.Validation
 {
     /// <summary>
-    /// Algorithm validation result model
+    /// Rule validation result model
     /// </summary>
-    public class AlgorithmValidationResultModel
+    public class RuleValidationResultModel
     {
         /// <summary>
         /// Gets or sets rule name

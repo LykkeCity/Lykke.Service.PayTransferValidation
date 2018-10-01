@@ -7,12 +7,12 @@ namespace Lykke.Service.PayTransferValidation.Domain.Repositories
     {
         Task<IMerchantConfigurationLine> AddAsync(IMerchantConfigurationLine src);
 
-        Task<IMerchantConfigurationLine> GetAsync(string merchantId, string algorithmId);
+        Task<IMerchantConfigurationLine> GetAsync(string merchantId, string ruleId);
 
         Task<IReadOnlyList<IMerchantConfigurationLine>> GetByMerchantAsync(string merchantId);
 
         Task UpdateAsync(IMerchantConfigurationLine src);
 
-        Task DeleteAsync(string merchantId, string algorithmId);
+        Task DeleteAsync(string merchantId, string ruleId);
     }
 }

@@ -9,10 +9,10 @@ using Newtonsoft.Json;
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    [AlgorithmIdentity("6099d02f-bc4b-41c6-afa0-ff654f7345c9", "Volume Limit")]
-    public sealed class VolumeLimitValidationAlgorithm : ValidationAlgorithm
+    [RuleIdentity("6099d02f-bc4b-41c6-afa0-ff654f7345c9", "Volume Limit")]
+    public sealed class VolumeLimitValidationRule : ValidationRule
     {
-        public override async Task<AlgorithmValidationResult> ExecuteAsync(Domain.ValidationContext ctx, string input)
+        public override async Task<RuleValidationResult> ExecuteAsync(Domain.ValidationContext ctx, string input)
         {
             throw new System.NotImplementedException();
         }

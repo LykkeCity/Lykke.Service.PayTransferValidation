@@ -12,6 +12,7 @@ using Lykke.Service.PayTransferValidation.Domain.Exceptions;
 using Lykke.Service.PayTransferValidation.Domain.Repositories;
 using Lykke.Service.PayTransferValidation.Domain.Services;
 using Lykke.Service.PayTransferValidation.Models.MerchantConfiguration;
+using Lykke.Service.PayTransferValidation.Models.Rule;
 using LykkePay.Common.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -33,10 +34,10 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         }
 
         /// <summary>
-        /// Get validation algorithms configuration for merchant
+        /// Get validation rules configuration for merchant
         /// </summary>
         /// <param name="merchantId">Merchant id</param>
-        /// <response code="200">Merchant validation algorithms configuration</response>
+        /// <response code="200">Merchant validation rules configuration</response>
         [HttpGet]
         [Route("{merchantId}")]
         [SwaggerOperation("GetMerchantConfiguration")]
@@ -49,17 +50,17 @@ namespace Lykke.Service.PayTransferValidation.Controllers
 
             return Ok(new ConfigurationModel
             {
-                Algorithms = Mapper.Map<IReadOnlyList<LineModel>>(cfg)
+                Rules = Mapper.Map<IReadOnlyList<LineModel>>(cfg)
             });
         }
 
         /// <summary>
-        /// Add new validation algorithm to merchant configuration
+        /// Add new validation rule to merchant configuration
         /// </summary>
-        /// <param name="model">Add validation algorithm details</param>
-        /// <response code="200">Validation algorithm has been successfully added</response>
-        /// <response code="400">Validation algorithm already added or algorithm input is invalid</response>
-        /// <response code="404">Validation algorithm not found</response>
+        /// <param name="model">Add validation rule details</param>
+        /// <response code="200">Validation rule has been successfully added</response>
+        /// <response code="400">Validation rule already added or rule input is invalid</response>
+        /// <response code="404">Validation rule not found</response>
         [HttpPost]
         [SwaggerOperation("AddMerchantConfiguration")]
         [ValidateModel]
@@ -87,34 +88,34 @@ namespace Lykke.Service.PayTransferValidation.Controllers
 
                 return BadRequest(e.ToErrorResponse());
             }
-            catch (ValidationAlgorithmNotFoundException e)
+            catch (ValidationRuleNotFoundException e)
             {
                 _log.Error(e, model.ToDetails());
 
-                return NotFound(ErrorResponse.Create($"Algorithm with id {model.AlgorithmId} not found"));
+                return NotFound(ErrorResponse.Create($"Rule with id {model.RuleId} not found"));
             }
         }
 
         /// <summary>
-        /// Deletes validation algorithm from merchant's configuration
+        /// Deletes validation rule from merchant's configuration
         /// </summary>
         /// <param name="merchantId">Merchant id</param>
-        /// <param name="algorithmId">Algorithm id</param>
-        /// <response code="404">Validation algorithm not found</response>
-        /// <response code="200">Validation algorithm has been successfully deleted</response>
+        /// <param name="ruleId">Rule id</param>
+        /// <response code="404">Validation rule not found</response>
+        /// <response code="200">Validation rule has been successfully deleted</response>
         [HttpDelete]
-        [Route("{merchantId}/{algorithmId}")]
+        [Route("{merchantId}/{ruleId}")]
         [SwaggerOperation("DeleteMerchantConfiguration")]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> Delete(string merchantId, string algorithmId)
+        public async Task<IActionResult> Delete(string merchantId, string ruleId)
         {
             merchantId = Uri.UnescapeDataString(merchantId);
-            algorithmId = Uri.UnescapeDataString(algorithmId);
+            ruleId = Uri.UnescapeDataString(ruleId);
 
             try
             {
-                await _configurationService.DeleteAsync(merchantId, algorithmId);
+                await _configurationService.DeleteAsync(merchantId, ruleId);
 
                 return Ok();
             }
@@ -127,25 +128,25 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         }
 
         /// <summary>
-        /// Enables validation algorithm in merchant's configuration
+        /// Enables validation rule in merchant's configuration
         /// </summary>
         /// <param name="merchantId">Merchant id</param>
-        /// <param name="algorithmId">Algorithm id</param>
-        /// <response code="404">Validation algorithm not found</response>
-        /// <response code="200">Validation algorithm has been successfully enabled</response>
+        /// <param name="ruleId">Rule id</param>
+        /// <response code="404">Validation rule not found</response>
+        /// <response code="200">Validation rule has been successfully enabled</response>
         [HttpPut]
-        [Route("{merchantId}/{algorithmId}/enable")]
+        [Route("{merchantId}/{ruleId}/enable")]
         [SwaggerOperation("EnableMerchantConfiguration")]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> Enable(string merchantId, string algorithmId)
+        public async Task<IActionResult> Enable(string merchantId, string ruleId)
         {
             merchantId = Uri.UnescapeDataString(merchantId);
-            algorithmId = Uri.UnescapeDataString(algorithmId);
+            ruleId = Uri.UnescapeDataString(ruleId);
 
             try
             {
-                await _configurationService.EnableAsync(merchantId, algorithmId);
+                await _configurationService.EnableAsync(merchantId, ruleId);
 
                 return Ok();
             }
@@ -158,25 +159,25 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         }
 
         /// <summary>
-        /// Disables validation algorithm in merchant's configuration
+        /// Disables validation rule in merchant's configuration
         /// </summary>
         /// <param name="merchantId">Merchant id</param>
-        /// <param name="algorithmId">Algorithm id</param>
-        /// <response code="404">Validation algorithm not found</response>
-        /// <response code="200">Validation algorithm has been successfully disabled</response>
+        /// <param name="ruleId">Rule id</param>
+        /// <response code="404">Validation rule not found</response>
+        /// <response code="200">Validation rule has been successfully disabled</response>
         [HttpPut]
-        [Route("{merchantId}/{algorithmId}/disable")]
+        [Route("{merchantId}/{ruleId}/disable")]
         [SwaggerOperation("DisableMerchantConfiguration")]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
-        public async Task<IActionResult> Disable(string merchantId, string algorithmId)
+        public async Task<IActionResult> Disable(string merchantId, string ruleId)
         {
             merchantId = Uri.UnescapeDataString(merchantId);
-            algorithmId = Uri.UnescapeDataString(algorithmId);
+            ruleId = Uri.UnescapeDataString(ruleId);
 
             try
             {
-                await _configurationService.DisableAsync(merchantId, algorithmId);
+                await _configurationService.DisableAsync(merchantId, ruleId);
 
                 return Ok();
             }
@@ -189,13 +190,13 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         }
 
         /// <summary>
-        /// Updates validation algorithm input
+        /// Updates validation rule input
         /// </summary>
-        /// <param name="model">Validation algorithm input details</param>
-        /// <response code="404">Validation algorithm or merchant configuration not found</response>
-        /// <response code="200">Validation algorithm input has been successfully updated</response>
+        /// <param name="model">Validation rule input details</param>
+        /// <response code="404">Validation rule or merchant configuration not found</response>
+        /// <response code="200">Validation rule input has been successfully updated</response>
         [HttpPut]
-        [SwaggerOperation("SetAlgorithmInput")]
+        [SwaggerOperation("SetRuleInput")]
         [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.BadRequest)]
@@ -204,10 +205,10 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         {
             try
             {
-                await _configurationService.UpdateAlgorithmInputAsync(
+                await _configurationService.UpdateRuleInputAsync(
                     model.MerchantId,
-                    model.AlgorithmId,
-                    model.AlgorithmInput.ToString());
+                    model.RuleId,
+                    model.RuleInput.ToString());
 
                 return Ok();
             }
@@ -215,13 +216,13 @@ namespace Lykke.Service.PayTransferValidation.Controllers
             {
                 _log.Error(e, $"PartitionKey = {e.PartitionKey}, RowKey = {e.RowKey}");
 
-                return NotFound(ErrorResponse.Create($"Configuration not found for algorithm {model.AlgorithmId}"));
+                return NotFound(ErrorResponse.Create($"Configuration not found for rule {model.RuleId}"));
             }
-            catch (ValidationAlgorithmNotFoundException e)
+            catch (ValidationRuleNotFoundException e)
             {
                 _log.Error(e, model.ToDetails());
 
-                return NotFound(ErrorResponse.Create($"Algorithm with id {model.AlgorithmId} not found"));
+                return NotFound(ErrorResponse.Create($"Rule with id {model.RuleId} not found"));
             }
             catch (InvalidInputException e)
             {

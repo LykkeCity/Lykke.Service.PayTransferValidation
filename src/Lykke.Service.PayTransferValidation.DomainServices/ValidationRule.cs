@@ -5,17 +5,17 @@ using Lykke.Service.PayTransferValidation.Domain.Services;
 
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
-    public abstract class ValidationAlgorithm : IValidationAlgorithm
+    public abstract class ValidationRule : IValidationRule
     {
-        public abstract Task<AlgorithmValidationResult> ExecuteAsync(ValidationContext ctx, string input);
+        public abstract Task<RuleValidationResult> ExecuteAsync(ValidationContext ctx, string input);
 
         public abstract IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> ValidateInput(string input);
 
-        protected virtual AlgorithmValidationResult GetSuccessResult()
+        protected virtual RuleValidationResult GetSuccessResult()
         {
-            return new AlgorithmValidationResult
+            return new RuleValidationResult
             {
-                DisplayName = GetType().GetAttributeValue((AlgorithmIdentityAttribute attr) => attr.DisplayName),
+                DisplayName = GetType().GetAttributeValue((RuleIdentityAttribute attr) => attr.DisplayName),
                 IsSuccess = true
             };
         }

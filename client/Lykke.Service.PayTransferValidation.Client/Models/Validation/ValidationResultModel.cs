@@ -8,8 +8,8 @@ namespace Lykke.Service.PayTransferValidation.Client.Models.Validation
     public class ValidationResultModel
     {
         /// <summary>
-        /// Gets or sets algorithms validation result array
+        /// Gets or sets rule validation result array
         /// </summary>
-        public IReadOnlyList<AlgorithmValidationResultModel> Results { get; set; }
+        public IReadOnlyList<RuleValidationResultModel> Results { get; set; }
     }
 }

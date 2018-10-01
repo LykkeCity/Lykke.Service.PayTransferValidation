@@ -3,9 +3,9 @@
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class AlgorithmIdentityAttribute : Attribute
+    public class RuleIdentityAttribute : Attribute
     {
-        public AlgorithmIdentityAttribute(string id, string displayName)
+        public RuleIdentityAttribute(string id, string displayName)
         {
             Id = id;
             DisplayName = displayName; 

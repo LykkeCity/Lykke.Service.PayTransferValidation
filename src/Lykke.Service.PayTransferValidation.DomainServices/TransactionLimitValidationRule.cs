@@ -10,18 +10,18 @@ using Newtonsoft.Json;
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    [AlgorithmIdentity("65846bd3f-170c-4f22-be8c-79a9a021c102", "Transaction Limit")]
-    public sealed class TransactionLimitValidationAlgorithm : ValidationAlgorithm
+    [RuleIdentity("65846bd3f-170c-4f22-be8c-79a9a021c102", "Transaction Limit")]
+    public sealed class TransactionLimitValidationRule : ValidationRule
     {
         private const string ErrorMessage = "The transferring amount breaks the limit per transaction";
 
-        public override Task<AlgorithmValidationResult> ExecuteAsync(Domain.ValidationContext ctx, string input)
+        public override Task<RuleValidationResult> ExecuteAsync(Domain.ValidationContext ctx, string input)
         {
             var cfg = JsonConvert.DeserializeObject<TransactionLimitInput>(input);
 
             var assetCfg = cfg.Limits.SingleOrDefault(x => x.AssetId == ctx.AssetId);
 
-            AlgorithmValidationResult result = GetSuccessResult();
+            RuleValidationResult result = GetSuccessResult();
 
             if (assetCfg != null)
             {

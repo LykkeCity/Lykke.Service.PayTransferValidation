@@ -3,8 +3,8 @@
     public class MerchantConfigurationLine : IMerchantConfigurationLine
     {
         public string MerchantId { get; set; }
-        public string AlgorithmId { get; set; }
-        public string AlgorithmInput { get; set; }
+        public string RuleId { get; set; }
+        public string RuleInput { get; set; }
         public bool? Enabled { get; set; }
     }
 }

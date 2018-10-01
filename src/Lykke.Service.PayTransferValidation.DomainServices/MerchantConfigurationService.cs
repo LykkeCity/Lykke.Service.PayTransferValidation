@@ -27,25 +27,25 @@ namespace Lykke.Service.PayTransferValidation.DomainServices
 
         public async Task<IMerchantConfigurationLine> AddAsync(IMerchantConfigurationLine src)
         {
-            var algorithm = _componentContext.ResolveNamed<IValidationAlgorithm>(src.AlgorithmId);
+            var rule = _componentContext.ResolveNamed<IValidationRule>(src.RuleId);
 
-            if (algorithm == null)
-                throw new ValidationAlgorithmNotFoundException(src.AlgorithmId);
+            if (rule == null)
+                throw new ValidationRuleNotFoundException(src.RuleId);
 
-            if (!string.IsNullOrEmpty(src.AlgorithmInput))
+            if (!string.IsNullOrEmpty(src.RuleInput))
             {
-                IEnumerable<ValidationResult> validationErrors = algorithm.ValidateInput(src.AlgorithmInput).ToList();
+                IEnumerable<ValidationResult> validationErrors = rule.ValidateInput(src.RuleInput).ToList();
 
                 if (validationErrors.Any())
-                    throw new InvalidInputException(src.AlgorithmId, validationErrors);
+                    throw new InvalidInputException(src.RuleId, validationErrors);
             }
 
             return await _repository.AddAsync(src);
         }
 
-        public async Task<IMerchantConfigurationLine> GetAsync(string merchantId, string algorithmId)
+        public async Task<IMerchantConfigurationLine> GetAsync(string merchantId, string ruleId)
         {
-            return await _repository.GetAsync(merchantId, algorithmId);
+            return await _repository.GetAsync(merchantId, ruleId);
         }
 
         public async Task<IReadOnlyList<IMerchantConfigurationLine>> GetByMerchantAsync(string merchantId)
@@ -53,40 +53,40 @@ namespace Lykke.Service.PayTransferValidation.DomainServices
             return await _repository.GetByMerchantAsync(merchantId);
         }
 
-        public async Task EnableAsync(string merchantId, string algorithmId)
+        public async Task EnableAsync(string merchantId, string ruleId)
         {
             await _repository.UpdateAsync(new MerchantConfigurationLine
-                {MerchantId = merchantId, AlgorithmId = algorithmId, Enabled = true});
+                {MerchantId = merchantId, RuleId = ruleId, Enabled = true});
         }
 
-        public async Task DisableAsync(string merchantId, string algorithmId)
+        public async Task DisableAsync(string merchantId, string ruleId)
         {
             await _repository.UpdateAsync(new MerchantConfigurationLine
-                { MerchantId = merchantId, AlgorithmId = algorithmId, Enabled = false });
+                { MerchantId = merchantId, RuleId = ruleId, Enabled = false });
         }
 
-        public async Task UpdateAlgorithmInputAsync(string merchantId, string algorithmId, string algorithmInput)
+        public async Task UpdateRuleInputAsync(string merchantId, string ruleId, string ruleInput)
         {
-            var algorithm =_componentContext.ResolveNamed<IValidationAlgorithm>(algorithmId);
+            var rule =_componentContext.ResolveNamed<IValidationRule>(ruleId);
 
-            if (algorithm == null)
-                throw new ValidationAlgorithmNotFoundException(algorithmId);
+            if (rule == null)
+                throw new ValidationRuleNotFoundException(ruleId);
 
-            IEnumerable<ValidationResult> validationErrors = algorithm.ValidateInput(algorithmInput).ToList();
+            IEnumerable<ValidationResult> validationErrors = rule.ValidateInput(ruleInput).ToList();
 
             if (validationErrors.Any())
-                throw new InvalidInputException(algorithmId, validationErrors);
+                throw new InvalidInputException(ruleId, validationErrors);
 
             await _repository.UpdateAsync(new MerchantConfigurationLine
             {
-                MerchantId = merchantId, AlgorithmId = algorithmId,
-                AlgorithmInput = JsonConvert.SerializeObject(JObject.Parse(algorithmInput), Formatting.Indented)
+                MerchantId = merchantId, RuleId = ruleId,
+                RuleInput = JsonConvert.SerializeObject(JObject.Parse(ruleInput), Formatting.Indented)
             });
         }
 
-        public async Task DeleteAsync(string merchantId, string algorithmId)
+        public async Task DeleteAsync(string merchantId, string ruleId)
         {
-            await _repository.DeleteAsync(merchantId, algorithmId);
+            await _repository.DeleteAsync(merchantId, ruleId);
         }
     }
 }
