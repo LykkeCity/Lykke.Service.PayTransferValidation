@@ -29,6 +29,6 @@ namespace Lykke.Service.PayTransferValidation.Client
         /// </summary>
         /// <returns></returns>
         [Get("/api/validation/rules")]
-        IEnumerable<RegisteredRuleModel> GetRegisteredRules();
+        Task<IEnumerable<RegisteredRuleModel>> GetRegisteredRules();
     }
 }
