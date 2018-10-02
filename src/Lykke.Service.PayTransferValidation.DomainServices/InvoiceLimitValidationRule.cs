@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Lykke.Service.PayTransferValidation.Domain;
+using Lykke.Service.PayTransferValidation.Domain.Exceptions;
 
 namespace Lykke.Service.PayTransferValidation.DomainServices
 {
@@ -25,7 +26,9 @@ namespace Lykke.Service.PayTransferValidation.DomainServices
 
         public override IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> ValidateInput(string input)
         {
-            throw new System.NotImplementedException();
+            string ruleId = GetType().GetAttributeValue((RuleIdentityAttribute attr) => attr.Id);
+
+            throw new InputNotRequiredException(ruleId);
         }
     }
 }

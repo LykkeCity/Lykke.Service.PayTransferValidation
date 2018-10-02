@@ -59,7 +59,7 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         /// </summary>
         /// <param name="model">Add validation rule details</param>
         /// <response code="200">Validation rule has been successfully added</response>
-        /// <response code="400">Validation rule already added or rule input is invalid</response>
+        /// <response code="400">Validation rule already added, rule input is invalid or rule input is not required</response>
         /// <response code="404">Validation rule not found</response>
         [HttpPost]
         [SwaggerOperation("AddMerchantConfiguration")]
@@ -93,6 +93,12 @@ namespace Lykke.Service.PayTransferValidation.Controllers
                 _log.Error(e, model.ToDetails());
 
                 return NotFound(ErrorResponse.Create($"Rule with id {model.RuleId} not found"));
+            }
+            catch (InputNotRequiredException e)
+            {
+                _log.Error(e, e.Message, $"ruleId = {e.RuleId}");
+
+                return BadRequest(ErrorResponse.Create(e.Message));
             }
         }
 
@@ -163,8 +169,8 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         /// </summary>
         /// <param name="merchantId">Merchant id</param>
         /// <param name="ruleId">Rule id</param>
-        /// <response code="404">Validation rule not found</response>
         /// <response code="200">Validation rule has been successfully disabled</response>
+        /// <response code="404">Validation rule not found</response>
         [HttpPut]
         [Route("{merchantId}/{ruleId}/disable")]
         [SwaggerOperation("DisableMerchantConfiguration")]
@@ -193,8 +199,9 @@ namespace Lykke.Service.PayTransferValidation.Controllers
         /// Updates validation rule input
         /// </summary>
         /// <param name="model">Validation rule input details</param>
-        /// <response code="404">Validation rule or merchant configuration not found</response>
         /// <response code="200">Validation rule input has been successfully updated</response>
+        /// <response code="400">Invalid input value or input value is not required</response>
+        /// <response code="404">Validation rule or merchant configuration not found</response>
         [HttpPut]
         [SwaggerOperation("SetRuleInput")]
         [ProducesResponseType(typeof(ErrorResponse), (int) HttpStatusCode.NotFound)]
@@ -229,6 +236,12 @@ namespace Lykke.Service.PayTransferValidation.Controllers
                 _log.Error(e, model.ToDetails());
 
                 return BadRequest(e.ToErrorResponse());
+            }
+            catch (InputNotRequiredException e)
+            {
+                _log.Error(e, e.Message, $"ruleId = {e.RuleId}");
+
+                return BadRequest(ErrorResponse.Create(e.Message));
             }
         }
     }
