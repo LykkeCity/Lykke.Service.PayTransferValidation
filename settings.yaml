@@ -4,7 +4,7 @@ PayTransferValidationService:
       settings-key: LykkePayLogsConnString
       types: [ AzureTableStorage, Tag ]
     DataConnString:
-      settings-key: LykkePayTransferValidationConnString
+      settings-key: LykkePayDataConnString
       types: [ AzureTableStorage, Tag ]
 
 SlackNotifications:
